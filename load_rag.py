@@ -4,17 +4,7 @@ from langchain_community.document_loaders import WebBaseLoader, PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from db import vector_store
 
-# Load and chunk contents of the blog
-# loader = WebBaseLoader(
-#     web_paths=("https://www.one.com/en/hosting",),
-#     bs_kwargs=dict(
-#         parse_only=bs4.SoupStrainer(
-#             class_=("tabbed-plans-content-wrapper", "acb-itd-wrapper")
-#         )
-#     ),
-# )
-
-loader = PyPDFLoader('/Users/ankitt/Downloads/Intro+to+AI+-+Course+notes.pdf')
+loader = PyPDFLoader('/path/to/pdf/file')
 pages = []
 
 for page in loader.lazy_load():
