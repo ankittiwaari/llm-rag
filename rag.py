@@ -37,7 +37,7 @@ def generate(state: State):
 graph_builder = StateGraph(State).add_sequence([retrieve, generate])
 graph_builder.add_edge(START, "retrieve")
 graph = graph_builder.compile()
-
+question = "What is Generative AI"
 print('Asking question:')
-response = graph.invoke({"question": "What is Generative AI"})
+response = graph.invoke({"question": question})
 print(response["answer"])
