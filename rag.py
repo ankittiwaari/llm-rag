@@ -1,15 +1,13 @@
+from dotenv import load_dotenv
 from langchain_ollama import ChatOllama
 from langchain import hub
 from langchain_core.documents import Document
 from langgraph.graph import START, StateGraph
 from typing_extensions import List, TypedDict
 from db import vector_store
-import os
-os.environ["LANGCHAIN_TRACING_V2"] = ""
-os.environ["LANGCHAIN_API_KEY"] = ""
-
-
-llm = ChatOllama(model="gemma3:4b")
+from os import getenv
+load_dotenv() 
+llm = ChatOllama(model=getenv("CHAT_MODEL"), streaming=True)
 
 # Define prompt for question-answering
 prompt = hub.pull("rlm/rag-prompt")
@@ -37,7 +35,3 @@ def generate(state: State):
 graph_builder = StateGraph(State).add_sequence([retrieve, generate])
 graph_builder.add_edge(START, "retrieve")
 graph = graph_builder.compile()
-question = "What is Generative AI"
-print('Asking question:')
-response = graph.invoke({"question": question})
-print(response["answer"])

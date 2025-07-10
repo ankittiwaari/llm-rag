@@ -1,10 +1,11 @@
 
-import bs4
-from langchain_community.document_loaders import WebBaseLoader, PyPDFLoader
+from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from db import vector_store
-
-loader = PyPDFLoader('/path/to/pdf/file')
+from os import getenv
+from dotenv import load_dotenv
+load_dotenv()
+loader = PyPDFLoader(getenv("SAMPLE_PDF"))
 pages = []
 
 for page in loader.lazy_load():
